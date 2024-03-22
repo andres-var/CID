@@ -1,0 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const data_set_1 = require("./data-set");
+const discrete_maths_1 = require("./discrete-maths");
+const slr_1 = require("./slr");
+const dataSet = new data_set_1.DataSet();
+dataSet.load("data.json");
+const discreteMaths = new discrete_maths_1.DiscreteMaths();
+const x = dataSet.getX();
+const y = dataSet.getY();
+const n = discreteMaths.getN(x);
+const sumX = discreteMaths.sumX(x);
+const sumY = discreteMaths.sumY(y);
+const sumXQuad = discreteMaths.sumXQuad(x);
+const sumXY = discreteMaths.sumXY(x, y);
+const sumYQuad = discreteMaths.sumYQuad(y);
+const slr = new slr_1.SLR();
+slr.toComputeBeta_1({ n, sumXY, sumX, sumY, sumXQuad });
+slr.toComputeBeta_0({ sumY, sumX, n });
+slr.toRegress();
+slr.computeCorrelationCoefficient({ n, sumXY, sumX, sumY, sumXQuad, sumYQuad });
+slr.computeDeterminationCoefficient();
+slr.makePredictions([23, 26, 15, 10, 60]);
+//# sourceMappingURL=index.js.map
